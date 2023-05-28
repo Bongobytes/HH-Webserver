@@ -2,8 +2,6 @@
 The Hackerhawks Webserver in a single .exe Executable
 
 Things Being Worked on - 
-
- - GUI inferface
  
  - Local Network Access
 
