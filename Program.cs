@@ -107,24 +107,14 @@ namespace WebServerApp
         {
             InitializeComponent();
 
-            notifyIcon = new NotifyIcon();
-            int V1 = 0;
-            int V2 = 0;
-            int V3 = 6;
-            notifyIcon.Text = ("HH Webserver: V" + V1 + "." + V2 + "." + V3);
-            notifyIcon.Visible = true;
-
             ContextMenu contextMenu = new ContextMenu();
             MenuItem exitMenuItem = new MenuItem("Exit");
             exitMenuItem.Click += (sender, e) => Application.Exit();
             contextMenu.MenuItems.Add(exitMenuItem);
-
-            notifyIcon.ContextMenu = contextMenu;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            notifyIcon.Visible = false;
             base.OnFormClosing(e);
         }
 
@@ -136,9 +126,6 @@ namespace WebServerApp
             this.customButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // defaultButton
-            // 
             this.defaultButton.Location = new System.Drawing.Point(12, 12);
             this.defaultButton.Name = "defaultButton";
             this.defaultButton.Size = new System.Drawing.Size(150, 30);
@@ -146,9 +133,6 @@ namespace WebServerApp
             this.defaultButton.Text = "Default Page";
             this.defaultButton.UseVisualStyleBackColor = true;
             this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
-            // 
-            // codingButton
-            // 
             this.codingButton.Location = new System.Drawing.Point(12, 48);
             this.codingButton.Name = "codingButton";
             this.codingButton.Size = new System.Drawing.Size(150, 30);
@@ -156,17 +140,11 @@ namespace WebServerApp
             this.codingButton.Text = "Coding Page";
             this.codingButton.UseVisualStyleBackColor = true;
             this.codingButton.Click += new System.EventHandler(this.codingButton_Click);
-            // 
-            // customCodeTextBox
-            // 
             this.customCodeTextBox.Location = new System.Drawing.Point(12, 84);
             this.customCodeTextBox.Multiline = true;
             this.customCodeTextBox.Name = "customCodeTextBox";
             this.customCodeTextBox.Size = new System.Drawing.Size(300, 200);
-            this.customCodeTextBox.TabIndex = 2;
-            // 
-            // customButton
-            // 
+            this.customCodeTextBox.TabIndex = 2; 
             this.customButton.Location = new System.Drawing.Point(12, 290);
             this.customButton.Name = "customButton";
             this.customButton.Size = new System.Drawing.Size(150, 30);
@@ -174,9 +152,6 @@ namespace WebServerApp
             this.customButton.Text = "Custom Page";
             this.customButton.UseVisualStyleBackColor = true;
             this.customButton.Click += new System.EventHandler(this.customButton_Click);
-            // 
-            // startButton
-            // 
             this.startButton.Location = new System.Drawing.Point(168, 290);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(144, 30);
@@ -184,9 +159,6 @@ namespace WebServerApp
             this.startButton.Text = "Start Server";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // MainForm
-            // 
             this.ClientSize = new System.Drawing.Size(324, 332);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.customButton);
@@ -194,17 +166,15 @@ namespace WebServerApp
             this.Controls.Add(this.codingButton);
             this.Controls.Add(this.defaultButton);
             this.Name = "MainForm";
-            this.Text = "Web Server";
+            this.Text = "hhwebserver";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
-
         private void defaultButton_Click(object sender, EventArgs e)
         {
             DefaultSelected?.Invoke(this, EventArgs.Empty);
         }
-
         private void codingButton_Click(object sender, EventArgs e)
         {
             CodingSelected?.Invoke(this, EventArgs.Empty);
@@ -219,20 +189,6 @@ namespace WebServerApp
         {
             StartServerClicked?.Invoke(this, EventArgs.Empty);
         }
-
-        private Icon GetEmbeddedIcon(string resourceName)
-        {
-            using (Stream iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-            {
-                if (iconStream != null)
-                {
-                    return new Icon(iconStream);
-                }
-            }
-
-            return null;
-        }
-
         public string GetCustomCode()
         {
             return customCodeTextBox.Text;
@@ -273,7 +229,6 @@ namespace WebServerApp
                 }
                 catch (HttpListenerException)
                 {
-                    // Ignore exception when stopping the listener
                 }
             }
             listener.Stop();
